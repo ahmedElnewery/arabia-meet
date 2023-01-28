@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .btn-primary {
+        @apply  bg-transparent text-white border border-primary rounded-md hover:bg-primary active:bg-primary transition-colors;
+    }
+    .btn-sm{
+        @apply text-xs px-4 py-3
+    }
+    .btn-lg {
+        @apply text-sm px-7 py-5 
+    }
+    .input {
+        @apply block w-full py-2 px-4 rounded-md text-lg text-primary
+    }
+    .label {
+       @apply inline-block mb-2 capitalize
+    }
+
+}
