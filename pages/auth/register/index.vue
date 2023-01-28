@@ -1,8 +1,5 @@
 
 <script setup>
-const router = useRouter()
-const {user,loginWithEmailAndPassword} = useAuth()
-
 const form = reactive({
   email: "",
   password: "",
@@ -11,11 +8,10 @@ const errors=reactive({
   email: "",
   password: "",
 })
-async function login(){
+const {user,registerWithEmailAndPassword} = useAuth()
+async function register(){
   try {
-   await loginWithEmailAndPassword(form.email,form.password)
-
-  router.push(`/profile`)
+   await registerWithEmailAndPassword(form.email,form.password)
   } catch (error) {
     console.log(error)
   }
@@ -24,8 +20,8 @@ async function login(){
 <template>
   <div class="flex items-center min-h-screen justify-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-slate-200 px-8 ">
       <div class="xl:w-1/3 lg:w-1/2 md:w-2/3 w-full  bg-slate-800 px-12 py-20 rounded-md">
-        <h2 class="text-5xl font-mono mb-8 text-center">Login</h2>
-        <form @submit.prevent="login">
+        <h2 class="text-5xl font-mono mb-8 text-center">Register</h2>
+        <form @submit.prevent="register">
           <div class="mb-8">
             <label for="email" class="label">Email</label>
             <input id="email" class="input" type="text" v-model="form.email" required />
