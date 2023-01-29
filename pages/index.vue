@@ -1,3 +1,10 @@
+
+<script setup>
+
+
+
+</script>
 <template>
-    <div>new</div>
+    <div>
+      <NuxtLink to="/profile">  go to profile</NuxtLink></div>
 </template>

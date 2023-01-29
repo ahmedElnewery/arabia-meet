@@ -1,11 +1,15 @@
 
 
 <script setup>
+definePageMeta({
+  middleware: ['auth']
+})
 const {user} =useAuth()
+
 </script>
+
 <template>
-    {{user.email}}
-    {{user.email}}
+<pre>{{user}}</pre>
 </template>
 <style>
 

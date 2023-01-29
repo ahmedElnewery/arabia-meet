@@ -1,14 +1,14 @@
-import { createUserWithEmailAndPassword,signInWithEmailAndPassword, User} from 'firebase/auth'
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, User } from 'firebase/auth'
 
-export default function() {
+export default function () {
   const { $auth } = useNuxtApp()
-  const user = useState<User | null>("user", () => null)
-
+  const userCookie = useCookie("userCookie")
+  const fbUser = useState<User | null>("fbUser", () => userCookie.value as any || null)
   const registerWithEmailAndPassword = async (email: string, password: string) => {
     try {
       const userCreds = await createUserWithEmailAndPassword($auth, email, password)
       if (userCreds) {
-        user.value = userCreds.user
+        fbUser.value = userCreds.user
 
       }
     } catch (error: unknown) {
@@ -23,7 +23,7 @@ export default function() {
     try {
       const userCreds = await signInWithEmailAndPassword($auth, email, password)
       if (userCreds) {
-        user.value = userCreds.user
+        fbUser.value = userCreds.user
       }
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -33,12 +33,24 @@ export default function() {
 
     }
   }
-  
+
+  const initUser = async () => {
+
+    onAuthStateChanged(getAuth(), (user) => {
+      if (user) {
+        fbUser.value = user
+        userCookie.value = JSON.stringify(user)
+      } else {
+
+      }
+    })
+  }
 
 
   return {
-    user,
+    user: fbUser,
     registerWithEmailAndPassword,
-    loginWithEmailAndPassword
+    loginWithEmailAndPassword,
+    initUser
   }
 }
