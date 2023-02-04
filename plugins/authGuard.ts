@@ -4,7 +4,7 @@ export default defineNuxtPlugin(() => {
         const { user } = useAuth()
 
         if(!user.value?.uid) {
-            return navigateTo('/')
+            return navigateTo('/auth/login')
         }
     })
   })

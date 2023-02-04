@@ -1,7 +1,7 @@
 
 <script setup>
 const router = useRouter()
-const {user,loginWithEmailAndPassword} = useAuth()
+const {user,loginWithEmailAndPassword,loginWithGoogle} = useAuth()
 
 const form = reactive({
   email: "",
@@ -14,8 +14,7 @@ const errors=reactive({
 async function login(){
   try {
    await loginWithEmailAndPassword(form.email,form.password)
-
-  router.push(`/profile`)
+  router.push(`/`)
   } catch (error) {
     console.log(error)
   }
@@ -47,7 +46,7 @@ async function login(){
         </form>
     
         <div class="flex flex-col justify-between gap-y-4 mt-5">
-            <button class="btn-lg  w-full bg-white text-primary">Continue with Google</button>
+            <button class="btn-lg  w-full bg-white text-primary" @click="loginWithGoogle">Continue with Google</button>
         </div>
       </div>
     </div>
